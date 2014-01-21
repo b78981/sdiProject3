@@ -54,9 +54,23 @@ var attackPoke = function (/*pickachu, charmander, squirtle, pickaDamage, charDa
 			console.log(pickachu[2] + " did " + pickaDamage[2] + " damage! " + pickachu[2] + " " +  pickaAttDescription[2] + ".");
 		};
 	} else if (pokemonName === "Charmander") {
-		
+		attackName = prompt("Choose an attack: " + charmander[0] + " or " + charmander[1] + " or " + charmander[2]);
+		if (attackName === charmander[0]) {
+			console.log(charmander[0] + " did " + charDamage[0] + " damage!");
+		} else if (attackName === charmander[1]) {
+			console.log(charmander[1] + " did " + charDamage[1] + " damage!");
+		} else if (attackName === charmander[2]) {
+			console.log(charmander[2] + " did " + charDamage[2] + " damage! " + charmander[2] + " " +  charAttDescription[2] + ".");
+		};
 	} else if (pokemonName === "Squirtle") {
-		
+		attackName = prompt("Choose an attack: " + squirtle[0] + " or " + squirtle[1] + " or " + squirtle[2]);
+		if (attackName === squirtle[0]) {
+			console.log(squirtle[0] + " did " + squirtDamage[0] + " damage!");
+		} else if (attackName === squirtle[1]) {
+			console.log(squirtle[1] + " did " + squirtDamage[1] + " damage! " + squirtle[1] + " " + squirtAttDescription[1] + ".");
+		} else if (attackName === squirtle[2]) {
+			console.log(squirtle[2] + " did " + squirtDamage[2] + " damage! ");
+		};
 	};
 };
 
