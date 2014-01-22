@@ -16,6 +16,8 @@ var bulbaHp = pokedex.wildPokemon[0].hp; // Bulbasuar's total HP
 var bulbaFainted = false;
 var bulbaCaught = false;
 var newMoves; 	// array returnd from learnBodySlam function
+var timeThrough = 0; // iterator for Bulbasaurs moveset
+var damageTaken = 0; // damage received from Bulbasaur attacks
 
 // Functions
 
@@ -111,6 +113,20 @@ var learnBodySlam = function (pokemon) {	// teaches a Pokemon Body Slam
 	};
 };
 
+var bulbaAttacks = function (timeThru) {
+	
+	if (timeThru === 0) {
+		console.log("Wild Bulbasaur used " + pokedex.wildPokemon[0].attacks.attackList[0] + "!");
+		return pokedex.wildPokemon[0].attacks.attackPoints[0];
+	} else if (timeThru === 1) {
+		console.log("Wild Bulbasaur used " + pokedex.wildPokemon[0].attacks.attackList[1] + "!");
+		return pokedex.wildPokemon[0].attacks.attackPoints[1];
+	} else if (timeThru === 2) {
+		console.log("Wild Bulbasaur used " + pokedex.wildPokemon[0].attacks.attackList[2] + "!");
+		return pokedex.wildPokemon[0].attacks.attackPoints[2];
+	};
+};
+
 // Main Code
 
 
@@ -136,17 +152,28 @@ while (bulbaFainted === false && bulbaCaught === false) {
 	if (attackOrThrow === "attack") {
 		damageGiven = attackPoke(pokemonName);
 		bulbaHp = bulbaHp - damageGiven;
-		if (bulbaHp <= 0) {
+		if (bulbaHp <= 0) {		// potential final outcome
 			bulbaFainted = true;
 			console.log("Wild Bulbasuar fainted!");
-			console.log("You will have to search far and wide to find another Bulbasaur...");	// potential final outcome
+			console.log("You will have to search far and wide to find another Bulbasaur...");	
 			console.log(pokemonName + " received 100 Exp Points for defeating wild Bulbasaur!")
 			console.log(pokemonName + " gained 1 level and learned the attack Body Slam!");
 			newMoves = learnBodySlam(pokemonName); 	// push a new attack to the pokemon who defeats bulbasaur
 			console.log(pokemonName + "'s new move set is:" + newMoves);
 		} else if (!(bulbaHp <= 0)) {
-			// call to a function where bulbasuar attacks
-		};
+ 			damageTaken = bulbaAttacks(timeThrough);
+			timeThrough++;
+			if (pokemonName === "Pickachu") {
+				console.log(pokemonName + " lost " + damageTaken + " HP.");
+				pokedex.myPokemon[0].hp = pokedex.myPokemon[0].hp - damageTaken;	
+			} else if (pokemonName === "Charmander") {
+				console.log(pokemonName + " lost " + damageTaken + " HP.");
+				pokedex.myPokemon[1].hp = pokedex.myPokemon[1].hp - damageTaken;	
+			} else if (pokemonName === "Squirtle") {
+				console.log(pokemonName + " lost " + damageTaken + " HP.");
+				pokedex.myPokemon[2].hp = pokedex.myPokemon[2].hp - damageTaken;	
+			}
+ 		};
 	} else if (attackOrThrow === "throw pokeball") {
 		// call to a function to throw pokeball
 	};
