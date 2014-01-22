@@ -10,11 +10,11 @@ var numberOfMyPokemon = pokedex.myPokemon.length;	// number of pokemon that are 
 var chosenPokemon = "";	// holds string for pokemon chosen by user
 var pokemonName; // returned string for showStats function
 var changePokemon = false; // boolean for confirm() after showStats function
-var attackOrThrow; // string for user decision to attack bulbasuar or throw a pokeball
+var attackOrRun; // string for user decision to attack bulbasuar or throw a pokeball
 var damageGiven = 0; // amount of damage done to bulbasaur that is returned from the attackPoke function
 var bulbaHp = pokedex.wildPokemon[0].hp; // Bulbasuar's total HP
 var bulbaFainted = false;
-var bulbaCaught = false;
+var willRun = false;
 var newMoves; 	// array returnd from learnBodySlam function
 var timeThrough = 0; // iterator for Bulbasaurs moveset
 var damageTaken = 0; // damage received from Bulbasaur attacks
@@ -24,7 +24,6 @@ var damageTaken = 0; // damage received from Bulbasaur attacks
 var showStats = function (pokemon) {		// shows stats for pokemon chosen by user, string is passed in
 	for (i = 0; i < pokedex.myPokemon.length; i++) {
 		if (pokemon === pokedex.myPokemon[i].name) {
-			console.log("---");
 			console.log("Pokemon Name: " + pokedex.myPokemon[i].name);
 			console.log("Total HP: " + pokedex.myPokemon[i].hp);
 			console.log("Attacks:");
@@ -91,8 +90,10 @@ var attackPoke = function (pokemonName) {	// depending on the pokemon, the user 
 	};
 };
 
-var catchPoke = function () {
-	
+var pokeRun = function (willRun) {
+	if (willRun) {
+		console.log("Wild Bulbasaur scared you. You took off running into the woods...");
+	};
 };
 
 var learnBodySlam = function (pokemon) {	// teaches a Pokemon Body Slam
@@ -115,13 +116,13 @@ var learnBodySlam = function (pokemon) {	// teaches a Pokemon Body Slam
 
 var bulbaAttacks = function (timeThru) {
 	
-	if (timeThru === 0) {
+	if (timeThru === 0 || timeThru === 3 ) {
 		console.log("Wild Bulbasaur used " + pokedex.wildPokemon[0].attacks.attackList[0] + "!");
 		return pokedex.wildPokemon[0].attacks.attackPoints[0];
-	} else if (timeThru === 1) {
+	} else if (timeThru === 1 || timeThru === 4) {
 		console.log("Wild Bulbasaur used " + pokedex.wildPokemon[0].attacks.attackList[1] + "!");
 		return pokedex.wildPokemon[0].attacks.attackPoints[1];
-	} else if (timeThru === 2) {
+	} else if (timeThru === 2 || timeThru === 5) {
 		console.log("Wild Bulbasaur used " + pokedex.wildPokemon[0].attacks.attackList[2] + "!");
 		return pokedex.wildPokemon[0].attacks.attackPoints[2];
 	};
@@ -145,22 +146,21 @@ while (changePokemon === false) {
 
 console.log("Alright, let's get'em " + pokemonName + "!");
 
-while (bulbaFainted === false && bulbaCaught === false) {
+while (bulbaFainted === false && willRun === false) {
 	
-	attackOrThrow = prompt("What do you want to do?", "attack or throw pokeball");
+	attackOrRun = prompt("What do you want to do?", "attack or run");
 	
-	if (attackOrThrow === "attack") {
+	if (attackOrRun === "attack") {
 		damageGiven = attackPoke(pokemonName);
 		bulbaHp = bulbaHp - damageGiven;
 		if (bulbaHp <= 0) {		// potential final outcome
 			bulbaFainted = true;
 			console.log("Wild Bulbasuar fainted!");
-			console.log("You will have to search far and wide to find another Bulbasaur...");	
 			console.log(pokemonName + " received 100 Exp Points for defeating wild Bulbasaur!")
 			console.log(pokemonName + " gained 1 level and learned the attack Body Slam!");
 			newMoves = learnBodySlam(pokemonName); 	// push a new attack to the pokemon who defeats bulbasaur
 			console.log(pokemonName + "'s new move set is:" + newMoves);
-		} else if (!(bulbaHp <= 0)) {
+		} else if (!(bulbaHp <= 0) && !(pokedex.myPokemon[0].hp <= 0) && !(pokedex.myPokemon[1].hp <= 0) && !(pokedex.myPokemon[2].hp <= 0) ) {
  			damageTaken = bulbaAttacks(timeThrough);
 			timeThrough++;
 			if (pokemonName === "Pickachu") {
@@ -173,9 +173,12 @@ while (bulbaFainted === false && bulbaCaught === false) {
 				console.log(pokemonName + " lost " + damageTaken + " HP.");
 				pokedex.myPokemon[2].hp = pokedex.myPokemon[2].hp - damageTaken;	
 			}
- 		};
-	} else if (attackOrThrow === "throw pokeball") {
-		// call to a function to throw pokeball
+ 		} else {
+			console.log("Your Pokemon has fainted... you ran away screaming like a little girl");	// potential final outcome	
+		};
+	} else if (attackOrRun === "run") {
+		willRun = true;
+		pokeRun(willRun);
 	};
 
 };
