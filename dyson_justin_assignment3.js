@@ -88,27 +88,6 @@ var bulbaAttacks = function (timeThru) {	// accepts a number
 	};
 };
 
-/*var calculateDamage = function (totalDamageTaken) {		// accepts an array
-	var damageAsInt = 0;
-	var notFainted = true;
-	
-	for (var i = 0; i < pokedex.myPokemon.length; i++) {
-		if (pokemonName === pokedex.myPokemon[i].name) {
-			pokedex.myPokemon[i].hp = pokedex.myPokemon[i].hp - damageTaken;	
-			console.log(pokemonName + " lost " + damageTaken + " HP.");
-		};
-		if (pokedex.myPokemon[i].hp > damageAsInt) {
-			notFainted = true;
-		};
-	};
-	for (var i2 = 0; i2 < totalDamageTaken.length; i2 ++) {
-		damageAsInt += totalDamageTaken[i2];
-	};
-	console.log(pokemonName + " has taken a total of " + damageAsInt + " damage.");
-
-	return notFainted;
-};*/
-
 var calculateDamage = function (totalDamageTaken) {		// accepts an array
 	var damageAsInt = 0;
 	var notFainted = true;
@@ -125,8 +104,8 @@ var calculateDamage = function (totalDamageTaken) {		// accepts an array
 	
 	console.log(pokemonName + " has taken a total of " + damageAsInt + " damage.");
 	
-	for (var i = 0; i < pokedex.myPokemon.length; i++) {
-		if (pokedex.myPokemon[i].hp < damageAsInt) {
+	for (var i3 = 0; i3 < pokedex.myPokemon.length; i3++) {
+		if (pokedex.myPokemon[i3].hp < damageAsInt) {
 			notFainted = false;
 		};
 	};
@@ -156,7 +135,7 @@ while (bulbaFainted === false && willRun === false) {
 	
 	attackOrRun = prompt("What do you want to do?", "Attack or Run");
 	
-	if (attackOrRun === "attack") {
+	if (attackOrRun === "Attack") {
 		damageGiven = attackPoke(pokemonName);
 		bulbaHp = bulbaHp - damageGiven;
 		if (bulbaHp <= 0) {		// potential final outcome
@@ -166,15 +145,15 @@ while (bulbaFainted === false && willRun === false) {
 			console.log(pokemonName + " gained 1 level and learned the attack Body Slam!");
 			newMoves = learnBodySlam(pokemonName); 	// push a new attack to the pokemon who defeats bulbasaur
 			console.log(pokemonName + "'s new move set is:" + newMoves);
-		} else if (!(bulbaHp <= 0) &&  (stillAlive === true)/*!(pokedex.myPokemon[0].hp <= 0) && !(pokedex.myPokemon[1].hp <= 0) && !(pokedex.myPokemon[2].hp <= 0)*/ ) {
+		} else if (!(bulbaHp <= 0) &&  (stillAlive === true)) {
  			totalDamage.push(damageTaken = bulbaAttacks(timeThrough));
 			timeThrough++;
 			stillAlive = calculateDamage(totalDamage);
  		} else if (stillAlive === false) {
-			console.log("Your Pokemon has fainted... you ran away screaming like a little girl.");	// potential final outcome	
 			willRun = true;
+			console.log("Your Pokemon has fainted... you ran away screaming like a little girl.");	// potential final outcome	
 		};
-	} else if (attackOrRun === "run") {
+	} else if (attackOrRun === "Run") {
 		willRun = true;
 		pokeRun(willRun);		// potential final outcome
 	};
