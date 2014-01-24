@@ -110,7 +110,7 @@ var calculateDamage = function (totalDamageTaken) {		// accepts an array
 		};
 	};
 	
-	return notFainted;
+	return notFainted; // boolean
 };
 
 // Main Code
@@ -136,26 +136,26 @@ while (bulbaFainted === false && willRun === false) {
 	attackOrRun = prompt("What do you want to do?", "Attack or Run");
 	
 	if (attackOrRun === "Attack") {
-		damageGiven = attackPoke(pokemonName);
+		damageGiven = attackPoke(pokemonName);		// passes in string of pokemon name
 		bulbaHp = bulbaHp - damageGiven;
 		if (bulbaHp <= 0) {		// potential final outcome
 			bulbaFainted = true;
 			console.log("Wild Bulbasuar fainted!");
 			console.log(pokemonName + " received 100 Exp Points for defeating wild Bulbasaur!")
 			console.log(pokemonName + " gained 1 level and learned the attack Body Slam!");
-			newMoves = learnBodySlam(pokemonName); 	// push a new attack to the pokemon who defeats bulbasaur
+			newMoves = learnBodySlam(pokemonName); 	// pushes a new attack to the pokemon who defeats bulbasaur and passes in string of pokemon name
 			console.log(pokemonName + "'s new move set is:" + newMoves);
 		} else if (!(bulbaHp <= 0) &&  (stillAlive === true)) {
- 			totalDamage.push(damageTaken = bulbaAttacks(timeThrough));
+ 			totalDamage.push(damageTaken = bulbaAttacks(timeThrough)); 		// passes in a number
 			timeThrough++;
-			stillAlive = calculateDamage(totalDamage);
+			stillAlive = calculateDamage(totalDamage);		// passes in an array
  		} else if (stillAlive === false) {
 			willRun = true;
 			console.log("Your Pokemon has fainted... you ran away screaming like a little girl.");	// potential final outcome	
 		};
 	} else if (attackOrRun === "Run") {
 		willRun = true;
-		pokeRun(willRun);		// potential final outcome
+		pokeRun(willRun);		// potential final outcome. passes in boolean value
 	};
 
 };
